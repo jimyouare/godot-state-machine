@@ -1,11 +1,17 @@
 extends Node
 
 var fsm: StateMachine
+@export var target_detection: Area2D
 
 func enter():
 	print("Hello from State 1!")
-	# Exit 2 seconds later
-	yield(get_tree().create_timer(2.0), "timeout")
+
+	#idle for random amout of time
+	randomize()
+	var time = randi() % 5 * (randf()+0.2)
+	print("\t waiting for ", time)
+	await get_tree().create_timer(time).timeout
+	
 	exit("State2")
 
 func exit(next_state):
@@ -31,5 +37,6 @@ func unhandled_input(_event):
 func unhandled_key_input(_event):
 	pass
 
-func notification(_what, _flag = false):
+
+func state_notification(_what, _flag = false):
 	pass
