@@ -4,7 +4,11 @@ var fsm: StateMachine
 
 func enter():
 	print("Hello from State 2!")
-	yield(get_tree().create_timer(2.0), "timeout")
+	#idle for random amout of time
+	randomize()
+	var time = randi() % 5 * (randf()+0.2)
+	print("\t waiting for ", time)
+	await get_tree().create_timer(time).timeout
 	exit()
 
 func exit():
