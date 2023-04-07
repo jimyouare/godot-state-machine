@@ -8,6 +8,7 @@ var state: Object
 
 var history = []
 
+
 func _ready():
 	# Set the initial state to the first child node
 	state = get_child(0)
@@ -23,7 +24,7 @@ func change_to(new_state):
 
 func back():
 	if history.size() > 0:
-		state = get_node(history.pop_back())
+		state = get_node(str(history.pop_back()))
 		_enter_state()
 
 
@@ -62,5 +63,5 @@ func _unhandled_key_input(event):
 
 
 func _notification(what):
-	if state and state.has_method("notification"):
-			state.notification(what)
+	if is_instance_valid(state) and state.has_method("state_notification"):
+			state.state_notification(what)
